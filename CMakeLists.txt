@@ -296,6 +296,10 @@ endif()
 # Threading-support
 if (NOT LIBUNWIND_ENABLE_THREADS)
   list(APPEND LIBUNWIND_COMPILE_FLAGS -D_LIBUNWIND_HAS_NO_THREADS)
+  if(LLVM_ENABLE_LIBCXX)
+    # Ensure libcxx doesn't try to use threads either
+    list(APPEND LIBUNWIND_COMPILE_FLAGS -D_LIBCPP_HAS_NO_THREADS)
+  endif()
 endif()
 
 # ARM WMMX register support
